@@ -1,0 +1,12 @@
+@* uploadFile Template File *@
+@()
+@helper.form(action = routes.HomeController.upload, 'enctype -> "multipart/form-data"){
+	<table>
+	<tr><td>Status File</td><td>Motion File</td></tr>
+	<tr>
+	<td><input type="file" name="statusFile" /></td>
+	<td><input type="file" name="motionFile" /></td>
+	</tr>
+	</table>
+	<button type="summit"> Summit</button>
+}
