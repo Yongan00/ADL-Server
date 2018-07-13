@@ -1,0 +1,12 @@
+@* analyzeIndex Template File *@
+@()
+
+@main("ADL Analyze Data Service") {
+  <h1>Welcome to ADL Analyze Data Service!</h1>
+  @helper.form(action = routes.AnalyzeServiceController.analyze){
+  	<p>User name: <input type="text" name="username"/> </p>
+  	<p>Date: <input type="date" name="analyzeDate"/></p>
+  	<button type="summit">Summit</button>
+  }
+}
+

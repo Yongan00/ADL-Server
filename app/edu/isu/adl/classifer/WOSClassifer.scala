@@ -1,17 +1,25 @@
 package edu.isu.adl.classifer
 
 import java.util.Properties
+import java.util.Date
+import java.io.File
+import java.lang.Object
+import java.sql.Date
+import java.sql.Connection
 import org.apache.spark.SparkContext._
 import org.apache.log4j._
 import org.apache.spark.sql.SparkSession
+import org.apache.spark.sql.SaveMode
 import org.apache.spark.ml.PipelineModel
 import org.apache.spark.ml.classification.DecisionTreeClassificationModel
+import play.api.Play
 
-object WOSClassifer {
-  def main(args: Array[String]){
+class WOSClassifer {
+  def classify(username:String, date:java.util.Date){
     // Set the log level to only print errors
     Logger.getLogger("org").setLevel(Level.ERROR)
     
+    //Set up database Conf
     val url = "jdbc:mysql://localhost:3306/adl?useSSL=false"
     val tableName = "adl.record"
     val dbUsername = "adlDev_yongan"
@@ -22,10 +30,24 @@ object WOSClassifer {
             .appName("WOSClassifer")
             .master("local[*]")
             .getOrCreate()
+
+    //Define SQL Query Statement
+    val dateInSQL = new java.sql.Date(date.getTime)
+    val startTime = dateInSQL.toString() + " 00:00:00"
+    val endTime = dateInSQL.toString() + " 23:59:59"
+    val query = """
+  (select r.*
+  from adl.record as r join adl.profile as p on r.userID=p.id
+  where p.username='""" + username + """' AND
+  unix_timestamp(timestamp) >= UNIX_TIMESTAMP('""" + startTime + """') AND 
+  unix_timestamp(timestamp) < UNIX_TIMESTAMP('""" + endTime + """')) foo
+  """
+    
+    //Connect
     val connectionProperties = new Properties()
     connectionProperties.setProperty("user", dbUsername)
     connectionProperties.setProperty("password", dbPassword)
-    val jdbcDF = ss.read.jdbc(url, tableName, connectionProperties)
+    val jdbcDF = ss.read.jdbc(url, query, connectionProperties)
     //jdbcDF.printSchema()
     
     //load trained model from disk
@@ -37,8 +59,31 @@ object WOSClassifer {
     val workOrSleepResult = workOrSleepModel.transform(jdbcDF).drop("indexedActionLabel","workOrSleepFeatures", "indexedWOSFeatures", "rawPrediction", "probability", "indexedWorkOrSleepPredic")
     val finalResult = bodyActionModel.transform(workOrSleepResult)
     //finalResult.printSchema()
-    finalResult.select("userID", "timeStamp", "workOrSleepPredic", "bodyActionPredic")
-          .write.csv("C:\\Users\\yongan\\CCLearning\\CC\\RecognitionOfADL\\data\\PhilAmes20160706_20160829\\PhilSamsang20160706_20160803\\myTrainingModel\\report")
+    
+    //Write result to a formatted Json file
+    val ROOT = Play.current.path.getPath
+    val tmpJsonFile = new File(ROOT + "/public/tmpFiles/Json")
+    if(tmpJsonFile.exists()){
+      tmpJsonFile.listFiles().foreach(s => s.delete())
+    }
+    tmpJsonFile.delete()
+    //finalResult.select("userID", "timeStamp", "workOrSleepPredic", "bodyActionPredic")
+          //.write.csv("C:\\Users\\yongan\\CCLearning\\CC\\RecognitionOfADL\\data\\PhilAmes20160706_20160829\\PhilSamsang20160706_20160803\\myTrainingModel\\report")
+    val jsonDS = finalResult.select("userID", "timeStamp", "workOrSleepPredic", "bodyActionPredic").toJSON
+    val count = jsonDS.count()
+    if(count != 0){
+    val jsonRDD = jsonDS.repartition(1)
+                  .rdd
+                  .zipWithIndex()
+                  .map{ case(json,idx) =>
+                    if(idx == 0) "[\n" + json + ","
+                    else if(idx == count-1) json + "\n]"
+                    else json + ","
+                  }
+                  .saveAsTextFile(ROOT + "/public/tmpFiles/Json")
+                  
+    }
     ss.close()
   }
+  
 }

@@ -13,6 +13,7 @@ import play.api.db._
 object DataFilter {
   
   def filterData(userName: String, timeStamp: String, motionFile: File, statusFile: File, connection:Connection){
+    //timeStamp Format:yyyyMMddkkmmss
     val statusData = new StatusDataFilter(statusFile)
     
     //get light, xAcce, yAcce, zAccr, angle, azimuth, pitch, roll, latitude, longitude, altitude
@@ -20,7 +21,7 @@ object DataFilter {
     //println(basicStatusData)
     
     //get hour
-    val hour = timeStamp.substring(9, 11)
+    val hour = timeStamp.substring(8, 10)
     //println(hour)
     
     //get moving, turning, lightChanging, dark, accel

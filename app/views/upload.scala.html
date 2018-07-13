@@ -1,6 +1,9 @@
-@* uploadFile Template File *@
+@* uploadIndex Template File *@
 @()
-@helper.form(action = routes.HomeController.upload, 'enctype -> "multipart/form-data"){
+
+@main("ADL Upload Data Service") {
+  <h1>Welcome to ADL Upload Data Service!</h1>
+  @helper.form(action = routes.UploadFileController.upload, 'enctype -> "multipart/form-data"){
 	<table>
 	<tr><td>Status File</td><td>Motion File</td></tr>
 	<tr>
@@ -9,4 +12,5 @@
 	</tr>
 	</table>
 	<button type="summit"> Summit</button>
+}
 }
