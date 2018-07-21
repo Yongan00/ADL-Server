@@ -15,6 +15,8 @@ libraryDependencies += javaJdbc
 
 libraryDependencies += "mysql" % "mysql-connector-java" % "8.0.11"
 
+//libraryDependencies += "org.webjars.npm" % "jszip" % "3.1.5"
+
 libraryDependencies ++= Seq(
 	"org.apache.spark" %% "spark-core" % "2.3.0",
 	"org.apache.spark" %% "spark-mllib" % "2.3.0"

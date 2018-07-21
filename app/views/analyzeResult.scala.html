@@ -1,0 +1,9 @@
+@* analyzeResult Template File *@
+@(jsResult: String)
+
+@main("ADL Analyze Result In D3 Data Visualization"){
+	<script src="@routes.Assets.versioned("javascripts/d3.min.js")"></script>
+	<p> Rendering json successfully! </p>
+	<input type="hidden" id="dataId" value=@jsResult />
+	<script scr="@routes.Assets.versioned("javascripts/dataVisualized.js")"></script>
+}

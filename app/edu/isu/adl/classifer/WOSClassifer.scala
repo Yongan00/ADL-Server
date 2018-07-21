@@ -2,20 +2,20 @@ package edu.isu.adl.classifer
 
 import java.util.Properties
 import java.util.Date
-import java.io.File
 import java.lang.Object
 import java.sql.Date
 import java.sql.Connection
+import com.fasterxml.jackson.databind._
+import com.fasterxml.jackson.databind.node.ArrayNode
 import org.apache.spark.SparkContext._
 import org.apache.log4j._
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.SaveMode
 import org.apache.spark.ml.PipelineModel
 import org.apache.spark.ml.classification.DecisionTreeClassificationModel
-import play.api.Play
 
 class WOSClassifer {
-  def classify(username:String, date:java.util.Date){
+  def classify(username:String, date:java.util.Date): JsonNode = {
     // Set the log level to only print errors
     Logger.getLogger("org").setLevel(Level.ERROR)
     
@@ -61,29 +61,20 @@ class WOSClassifer {
     //finalResult.printSchema()
     
     //Write result to a formatted Json file
-    val ROOT = Play.current.path.getPath
-    val tmpJsonFile = new File(ROOT + "/public/tmpFiles/Json")
-    if(tmpJsonFile.exists()){
-      tmpJsonFile.listFiles().foreach(s => s.delete())
-    }
-    tmpJsonFile.delete()
     //finalResult.select("userID", "timeStamp", "workOrSleepPredic", "bodyActionPredic")
           //.write.csv("C:\\Users\\yongan\\CCLearning\\CC\\RecognitionOfADL\\data\\PhilAmes20160706_20160829\\PhilSamsang20160706_20160803\\myTrainingModel\\report")
-    val jsonDS = finalResult.select("userID", "timeStamp", "workOrSleepPredic", "bodyActionPredic").toJSON
-    val count = jsonDS.count()
-    if(count != 0){
-    val jsonRDD = jsonDS.repartition(1)
-                  .rdd
-                  .zipWithIndex()
-                  .map{ case(json,idx) =>
-                    if(idx == 0) "[\n" + json + ","
-                    else if(idx == count-1) json + "\n]"
-                    else json + ","
-                  }
-                  .saveAsTextFile(ROOT + "/public/tmpFiles/Json")
-                  
-    }
+    
+    val jsonDS = finalResult.select("userID", "timeStamp", "workOrSleepPredic", "bodyActionPredic").toJSON.collect()
+    val mapper: ObjectMapper = new ObjectMapper()
+    val linesAsJson: ArrayNode = mapper.createArrayNode()
+    jsonDS.foreach(x => {
+      val lineAsJson: JsonNode = mapper.readTree(x)
+      linesAsJson.add(lineAsJson)
+    })
+
     ss.close()
+    //System.out.println("Json format: " + mapper.writerWithDefaultPrettyPrinter().writeValueAsString(linesAsJson))
+    return linesAsJson
   }
   
 }

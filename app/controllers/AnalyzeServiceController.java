@@ -1,10 +1,5 @@
 package controllers;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,16 +8,12 @@ import java.util.Date;
 import javax.inject.Inject;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 
 import edu.isu.adl.classifer.WOSClassifer;
-import edu.isu.tools.JsonFileFilter;
 import play.mvc.*;
 import play.data.DynamicForm;
 import play.data.FormFactory;
-import play.db.Database;
-import play.libs.Json;
-import play.Play;
-import play.libs.Json;
 
 
 public class AnalyzeServiceController extends Controller{
@@ -45,27 +36,11 @@ public class AnalyzeServiceController extends Controller{
     	
     	//Generate json result based on username and date
     	WOSClassifer classifer = new WOSClassifer();
-		classifer.classify(username, date);
+		JsonNode jsResult = classifer.classify(username, date);
 		
-		//Load json file and display
-		String path = Play.application().path().getPath() + "/public/tmpFiles/Json";
-    	//File jsonFiles = new File(path);
-    	//String[] jsonName = jsonFiles.list(new JsonFileFilter());
-    	File jsonFile = new File(path + "/part-00000");
-    	if(jsonFile.exists()) {
-    		System.out.println(jsonFile.getPath());
-    		try {
-    			InputStream is = new FileInputStream(jsonFile);
-    			try {
-				JsonNode jsValue = Json.parse(is);
-				return ok(jsValue);
-    			}finally {
-    				is.close();
-    			}
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		//Load json and display
+    	if(jsResult.size() != 0) {
+    		return ok(views.html.analyzeResult.render(jsResult.toString()));
     	}
     	return ok("Cannot find json file");
     }

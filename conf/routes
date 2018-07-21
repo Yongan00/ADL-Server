@@ -6,6 +6,8 @@
 GET   /uploadService                           controllers.UploadFileController.index
 + nocsrf
 POST  /uploadService/upload                    controllers.UploadFileController.upload
++ nocsrf
+POST /uploadService/uploadMulti                controllers.UploadFilesController.upload
 
 GET   /analyzeService                          controllers.AnalyzeServiceController.index  
 
