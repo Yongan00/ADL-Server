@@ -1,36 +1,36 @@
 /**
- * Visualize the Work or Sleep data in d3js.org
+ * Visualize the Body Action data in d3js.org
  */
 var dataJsons = document.getElementById("dataId").value;
 var dataObjects = JSON.parse(dataJsons);
 
-//Counting work or sleep periods
-var workingPeriod = 0;
-var sleepingPeriod = 0;
-var othersPeriod = 0;
+//Counting body action periods
+var standingPeriod = 0;
+var sittingPeriod = 0;
+var lyingPeriod = 0;
 for(var i=0;i<dataObjects.length; i++){
 	dataObjects[i].timeStampInUnix = new Date(dataObjects[i].timeStampInUnix * 1000);
 	//The first record does not count in the period
 	if(i!=0){
 	var period = Math.abs(dataObjects[i].timeStampInUnix - dataObjects[i-1].timeStampInUnix);
-	if(dataObjects[i].workOrSleepPredic == "working"){
-		workingPeriod += period;
-	}else if(dataObjects[i].workOrSleepPredic == "sleeping"){
-		sleepingPeriod += period;
-	}else if(dataObjects[i].workOrSleepPredic == "others"){
-		othersPeriod += period;
+	if(dataObjects[i].bodyActionPredic == "standing"){
+		standingPeriod += period;
+	}else if(dataObjects[i].bodyActionPredic == "sitting"){
+		sittingPeriod += period;
+	}else if(dataObjects[i].bodyActionPredic == "lying"){
+		lyingPeriod += period;
 	}
 	}
 }
 
 var dataInShow = [
-	{"status": "Working", "timeInSeconds": workingPeriod/1000},
-	{"status": "Sleeping", "timeInSeconds": sleepingPeriod/1000},
-	{"status": "Others", "timeInSeconds": othersPeriod/1000},
-	{"status": "Unrecorded", "timeInSeconds": 24*60*60 - workingPeriod/1000 - sleepingPeriod/1000 - othersPeriod/1000}
+	{"status": "Standing", "timeInSeconds": standingPeriod/1000},
+	{"status": "Sitting", "timeInSeconds": sittingPeriod/1000},
+	{"status": "Lying", "timeInSeconds": lyingPeriod/1000},
+	{"status": "Unrecorded", "timeInSeconds": 24*60*60 - standingPeriod/1000 - sittingPeriod/1000 - lyingPeriod/1000}
 ]
 var svgWidth = 700, svgHeight = 400, radius =  Math.min(svgWidth, svgHeight) / 2;
-var svg = d3.select("#chart1")
+var svg = d3.select("#chart2")
     .attr("width", svgWidth)
     .attr("height", svgHeight);
 

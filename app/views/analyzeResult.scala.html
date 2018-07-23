@@ -1,9 +1,15 @@
 @* analyzeResult Template File *@
-@(jsResult: String)
+@(jsResult: String, username: String, date: String)
 
 @main("ADL Analyze Result In D3 Data Visualization"){
 	<script src="@routes.Assets.versioned("javascripts/d3.min.js")"></script>
-	<p> Rendering json successfully! </p>
-	<input type="hidden" id="dataId" value=@jsResult />
-	<script scr="@routes.Assets.versioned("javascripts/dataVisualized.js")"></script>
+	<p> User: @username </p>
+	<p> Date of Report: @date </p>
+	<input type="hidden" id="dataId" value="@jsResult" />
+	<h1>Status of Work or Sleep for One Day in Seconds</h1>
+	<svg class="pie-chart" id = "chart1"></svg>
+	<h1>Status of Body Action for One Day in Seconds</h1>
+	<svg class="pie-chart" id = "chart2"></svg>
+	<script src="@routes.Assets.versioned("javascripts/dataVisualized.js")" type="text/javascript"></script>
+	<script src="@routes.Assets.versioned("javascripts/dataVisualized2.js")" type="text/javascript"></script>
 }

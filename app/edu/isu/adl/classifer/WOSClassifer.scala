@@ -36,7 +36,7 @@ class WOSClassifer {
     val startTime = dateInSQL.toString() + " 00:00:00"
     val endTime = dateInSQL.toString() + " 23:59:59"
     val query = """
-  (select r.*
+  (select r.*, UNIX_timeStamp(timestamp) as timestampInUnix
   from adl.record as r join adl.profile as p on r.userID=p.id
   where p.username='""" + username + """' AND
   unix_timestamp(timestamp) >= UNIX_TIMESTAMP('""" + startTime + """') AND 
@@ -64,7 +64,7 @@ class WOSClassifer {
     //finalResult.select("userID", "timeStamp", "workOrSleepPredic", "bodyActionPredic")
           //.write.csv("C:\\Users\\yongan\\CCLearning\\CC\\RecognitionOfADL\\data\\PhilAmes20160706_20160829\\PhilSamsang20160706_20160803\\myTrainingModel\\report")
     
-    val jsonDS = finalResult.select("userID", "timeStamp", "workOrSleepPredic", "bodyActionPredic").toJSON.collect()
+    val jsonDS = finalResult.select("userID", "timeStampInUnix", "workOrSleepPredic", "bodyActionPredic").toJSON.collect()
     val mapper: ObjectMapper = new ObjectMapper()
     val linesAsJson: ArrayNode = mapper.createArrayNode()
     jsonDS.foreach(x => {

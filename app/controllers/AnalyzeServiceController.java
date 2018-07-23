@@ -40,7 +40,7 @@ public class AnalyzeServiceController extends Controller{
 		
 		//Load json and display
     	if(jsResult.size() != 0) {
-    		return ok(views.html.analyzeResult.render(jsResult.toString()));
+    		return ok(views.html.analyzeResult.render(jsResult.toString(), username, dateFormat.format(date)));
     	}
     	return ok("Cannot find json file");
     }

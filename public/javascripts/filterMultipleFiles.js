@@ -1,5 +1,5 @@
 /**
- * 
+ * Filter multiple files and send to the server
  */
 //var JSZip = require("jszip");
 
