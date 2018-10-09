@@ -8,3 +8,5 @@
     play.filters.hosts.AllowedHostsFilter
 
 2018-10-09 18:38:24,299 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-6 - Application started (Dev)
+2018-10-09 18:39:46,330 [WARN] from org.apache.hadoop.util.NativeCodeLoader in application-akka.actor.default-dispatcher-4 - Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2018-10-09 18:39:57,758 [WARN] from org.apache.spark.util.Utils in application-akka.actor.default-dispatcher-4 - Truncated the string representation of a plan since it was too large. This behavior can be adjusted by setting 'spark.debug.maxToStringFields' in SparkEnv.conf.
