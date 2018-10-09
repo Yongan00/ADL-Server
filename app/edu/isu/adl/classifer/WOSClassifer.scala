@@ -51,8 +51,8 @@ class WOSClassifer {
     //jdbcDF.printSchema()
     
     //load trained model from disk
-    val workOrSleepModel = PipelineModel.load("C:\\Users\\yongan\\CCLearning\\CC\\RecognitionOfADL\\data\\PhilAmes20160706_20160829\\PhilSamsang20160706_20160803\\myTrainingModel\\workOrSleepModel")
-    val bodyActionModel = PipelineModel.load("C:\\Users\\yongan\\CCLearning\\CC\\RecognitionOfADL\\data\\PhilAmes20160706_20160829\\PhilSamsang20160706_20160803\\myTrainingModel\\bodyActionModel")
+    val workOrSleepModel = PipelineModel.load("C:\\Users\\yongan\\CCLearning\\CC\\spark\\SparkScala_Workspace\\ADLServer\\data\\workOrSleepModel")
+    val bodyActionModel = PipelineModel.load("C:\\Users\\yongan\\CCLearning\\CC\\spark\\SparkScala_Workspace\\ADLServer\\data\\bodyAction")
     //val treeModel = model.stages(4).asInstanceOf[DecisionTreeClassificationModel]
     //println(s"Learned classification tree model:\n ${treeModel.toDebugString}")
     

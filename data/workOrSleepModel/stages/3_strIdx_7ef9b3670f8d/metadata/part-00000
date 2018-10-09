@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1539125190246,"sparkVersion":"2.3.0","uid":"strIdx_7ef9b3670f8d","paramMap":{"stringOrderType":"frequencyDesc","outputCol":"indexedWorkOrSleep","handleInvalid":"error","inputCol":"workOrSleep"}}

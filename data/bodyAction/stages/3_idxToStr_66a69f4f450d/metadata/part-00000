@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.IndexToString","timestamp":1539125138622,"sparkVersion":"2.3.0","uid":"idxToStr_66a69f4f450d","paramMap":{"outputCol":"bodyActionPredic","inputCol":"indexedBodyActionPredic","labels":["sitting","standing","lying"]}}

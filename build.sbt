@@ -19,13 +19,13 @@ libraryDependencies += "mysql" % "mysql-connector-java" % "8.0.11"
 
 libraryDependencies ++= Seq(
 	"org.apache.spark" %% "spark-core" % "2.3.0",
-	"org.apache.spark" %% "spark-mllib" % "2.3.0"
+	"org.apache.spark" %% "spark-mllib" % "2.3.0",
 	)
 	
 dependencyOverrides ++= Seq(
-	"com.fasterxml.jackson.core" % "jackson-core" % "2.8.11",
-	"com.fasterxml.jackson.core" % "jackson-databind" % "2.8.11",
-	"com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.8.11"
+	"com.fasterxml.jackson.core" % "jackson-core" % "2.6.7",
+	"com.fasterxml.jackson.core" % "jackson-databind" % "2.6.7.1",
+	"com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.6.7.1"
 	)
 	
 dependencyOverrides += "com.google.guava" % "guava" % "15.0"

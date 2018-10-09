@@ -124,8 +124,8 @@ object DataML {
     println(s"Learned classification tree model:\n ${treeModel.toDebugString}")
     
     //save model and pipeline to disk
-    model.write.overwrite().save("C:\\Users\\yongan\\CCLearning\\CC\\RecognitionOfADL\\data\\PhilAmes20160706_20160829\\PhilSamsang20160706_20160803\\myTrainingModel\\workOrSleepModel")
-    pipeline.write.overwrite().save("C:\\Users\\yongan\\CCLearning\\CC\\RecognitionOfADL\\data\\PhilAmes20160706_20160829\\PhilSamsang20160706_20160803\\myTrainingModel\\workOrSleepPipeline")
+    model.write.overwrite().save("C:\\Users\\yongan\\CCLearning\\CC\\spark\\SparkScala_Workspace\\ADLServer\\data\\workOrSleepModel")
+    //pipeline.write.overwrite().save("C:\\Users\\yongan\\CCLearning\\CC\\RecognitionOfADL\\data\\PhilAmes20160706_20160829\\PhilSamsang20160706_20160803\\myTrainingModel\\workOrSleepPipeline")
     ss.stop()
   }
 }

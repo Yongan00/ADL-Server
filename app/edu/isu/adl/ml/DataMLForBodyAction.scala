@@ -11,6 +11,7 @@ import org.apache.spark.ml.evaluation.MulticlassClassificationEvaluator
 import org.apache.spark.ml.Pipeline
 import org.apache.spark.ml.PipelineModel
 
+
 object DataMLForBodyAction {
   def resultDataMapper(line: String): (TrainingDataFormat) = {
     val attr = line.split(',')
@@ -97,7 +98,7 @@ object DataMLForBodyAction {
     val treeModel = model.stages(2).asInstanceOf[DecisionTreeClassificationModel]
     println(s"Learned classification tree model:\n ${treeModel.toDebugString}")
     
-    model.write.overwrite().save("C:\\Users\\yongan\\CCLearning\\CC\\RecognitionOfADL\\data\\PhilAmes20160706_20160829\\PhilSamsang20160706_20160803\\myTrainingModel\\bodyActionModel")
+    model.write.overwrite().save("C:\\Users\\yongan\\CCLearning\\CC\\spark\\SparkScala_Workspace\\ADLServer\\data\\bodyAction")
     ss.stop()
   }
 }

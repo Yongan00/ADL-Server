@@ -1,13 +1,10 @@
-2018-07-23 16:09:20,272 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-3 - Creating Pool for datasource 'default'
-2018-07-23 16:09:20,485 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-3 - Database [default] connected at jdbc:mysql://localhost:3306/adl?useSSL=false
-2018-07-23 16:09:21,010 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-3 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+2018-10-09 18:38:23,603 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-6 - Creating Pool for datasource 'default'
+2018-10-09 18:38:23,838 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-akka.actor.default-dispatcher-6 - Database [default] connected at jdbc:mysql://localhost:3306/adl?useSSL=false
+2018-10-09 18:38:24,299 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-6 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
 
     play.filters.csrf.CSRFFilter
     play.filters.headers.SecurityHeadersFilter
     play.filters.hosts.AllowedHostsFilter
+    play.filters.hosts.AllowedHostsFilter
 
-2018-07-23 16:09:21,016 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-3 - Application started (Dev)
-2018-07-23 16:09:26,293 [WARN] from org.apache.hadoop.util.NativeCodeLoader in application-akka.actor.default-dispatcher-6 - Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
-2018-07-23 16:09:37,122 [WARN] from org.apache.spark.util.Utils in application-akka.actor.default-dispatcher-6 - Truncated the string representation of a plan since it was too large. This behavior can be adjusted by setting 'spark.debug.maxToStringFields' in SparkEnv.conf.
-2018-07-23 16:45:11,982 [INFO] from play.core.server.AkkaHttpServer in pool-7-thread-5 - Stopping server...
-2018-07-23 16:45:12,013 [INFO] from application in application-akka.actor.default-dispatcher-109 - Shutting down connection pool.
+2018-10-09 18:38:24,299 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-6 - Application started (Dev)
